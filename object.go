@@ -3,9 +3,16 @@ package chatgo
 import "encoding/json"
 
 type Object interface {
-	Get() interface{}
 	MarshalJSON() ([]byte, error)
-	UnmarshalJSON([]byte) error
+}
+
+/*
+Common Objects
+*/
+type Text string
+
+func (t Text) MarshalJSON() ([]byte, error) {
+	return []byte(t), nil
 }
 
 /*
@@ -23,8 +30,15 @@ func (k Keyboard) MarshalJSON() ([]byte, error) {
 }
 
 type Message struct {
-	Text  string `json:"text,omitempty"`
-	Photo Photo  `json:"photo,omitempty"`
+	Text  string
+	Photo Photo
+}
+
+func (m Message) MarshalJSON() ([]byte, error) {
+	return json.Marshal(&struct {
+		Text  string `json:"text,omitempty"`
+		Photo *Photo `json:"photo,omitempty"`
+	}{Text: m.Text, Photo: &m.Photo})
 }
 
 type Photo struct {
