@@ -1,5 +1,8 @@
 package chatgo
 
+type Condition func(*Object) bool
+type Behavior func(*Object)
+
 type Scenario interface {
 	Do(*Object)
 	Next(*Object) (*Scenario, *Object)
@@ -19,9 +22,9 @@ func RunScenario(scenario *Scenario, o *Object) {
 }
 
 type CommonScenario struct {
-	Conditions   []func(*Object) bool
-	Behaviors    []func(*Object)
-	Else         []func(*Object)
+	Conditions   []Condition
+	Behaviors    []Behavior
+	Else         []Behavior
 	NextScenario *Scenario
 	NextInput    *Object
 }
