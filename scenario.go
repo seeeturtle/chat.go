@@ -1,47 +1,49 @@
 package chatgo
 
-type Condition func(*Object) bool
-type Behavior func(*Object)
+type Condition func(Object) bool
+type Behavior func(Object) (Scenario, Object)
 
 type Scenario interface {
-	Do(*Object)
-	Next(*Object) (*Scenario, *Object)
+	Next(Object) (Scenario, Object)
 }
 
-func RunScenario(scenario *Scenario, o *Object) {
+func RunScenario(scenario Scenario, o Object) Object {
 	next := scenario
 	input := o
 	for {
 		if next != nil {
-			(*next).Do(o)
-			next, input = (*next).Next(input)
+			next, input = next.Next(input)
 		} else {
-			return
+			return input
 		}
 	}
 }
 
 type CommonScenario struct {
-	Conditions   []Condition
-	Behaviors    []Behavior
-	Else         []Behavior
-	NextScenario *Scenario
-	NextInput    *Object
+	conditions   []Condition
+	behaviors    []Behavior
+	elseBehavior Behavior
 }
 
-func (scenario CommonScenario) Do(o *Object) {
-	for i, condition := range scenario.Conditions {
+func (scenario *CommonScenario) Add(condition Condition, behavior Behavior) {
+	scenario.conditions = append(scenario.conditions, condition)
+	scenario.behaviors = append(scenario.behaviors, behavior)
+}
+
+func (scenario *CommonScenario) Else(behavior Behavior) {
+	scenario.elseBehavior = behavior
+}
+
+func (scenario CommonScenario) Next(o Object) (Scenario, Object) {
+	for i, condition := range scenario.conditions {
 		if condition(o) {
-			scenario.Behaviors[i](o)
-			return
+			return scenario.behaviors[i](o)
 		}
 	}
 
-	for _, elseBehaviors := range scenario.Else {
-		elseBehaviors(o)
+	if scenario.elseBehavior != nil {
+		return scenario.elseBehavior(o)
+	} else {
+		return nil, nil
 	}
-}
-
-func (scenario CommonScenario) Next(o *Object) (*Scenario, *Object) {
-	return scenario.NextScenario, scenario.NextInput
 }
