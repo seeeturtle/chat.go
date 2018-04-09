@@ -6,18 +6,12 @@ type Object interface {
 	MarshalJSON() ([]byte, error)
 }
 
-/*
-Common Objects
-*/
 type Text string
 
 func (t Text) MarshalJSON() ([]byte, error) {
 	return []byte(t), nil
 }
 
-/*
-Kakao Plusfriend
-*/
 type Keyboard struct {
 	Buttons []string
 }
