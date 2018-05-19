@@ -57,29 +57,46 @@ func (chat Chat) postFriend(c echo.Context) error {
 		return err
 	}
 
-	return c.String(200, string(
-		RunScenario(
-			chat.scenarios["add_user"],
-			Text(req.UserKey),
-		).(Text)))
+	RunScenario(
+		chat.scenarios["add_user"],
+		Text(req.UserKey),
+	)
+
+	return c.JSON(200, &struct {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+		Comment string `json:"comment"`
+	}{Code: 0, Message: "SUCCESS", Comment: "정상 응답"})
 }
 
 func (chat Chat) deleteFriend(c echo.Context) error {
 	userKey := c.Param("user_key")
 
-	return c.String(200, string(
-		RunScenario(chat.scenarios["delete_user"],
-			Text(userKey),
-		).(Text)))
+	RunScenario(
+		chat.scenarios["delete_user"],
+		Text(userKey),
+	)
+
+	return c.JSON(200, &struct {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+		Comment string `json:"comment"`
+	}{Code: 0, Message: "SUCCESS", Comment: "정상 응답"})
 }
 
 func (chat Chat) deleteRoom(c echo.Context) error {
 	userKey := c.Param("user_key")
 
-	return c.String(200, string(
-		RunScenario(chat.scenarios["delete_room"],
-			Text(userKey),
-		).(Text)))
+	RunScenario(
+		chat.scenarios["delete_room"],
+		Text(userKey),
+	)
+
+	return c.JSON(200, &struct {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+		Comment string `json:"comment"`
+	}{Code: 0, Message: "SUCCESS", Comment: "정상 응답"})
 }
 
 // New returns new *echo.Echo and error to run.
