@@ -29,10 +29,24 @@ type Message struct {
 }
 
 func (m Message) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&struct {
+	type tempMessage struct {
 		Text  string `json:"text,omitempty"`
 		Photo *Photo `json:"photo,omitempty"`
-	}{Text: m.Text, Photo: &m.Photo})
+	}
+
+	var photo *Photo
+	if m.Photo != (Photo{}) {
+		photo = &m.Photo
+	}
+
+	return json.Marshal(&struct {
+		Message tempMessage `json:"message,omitempty"`
+	}{
+		Message: tempMessage{
+			Text:  m.Text,
+			Photo: photo,
+		},
+	})
 }
 
 type Photo struct {
