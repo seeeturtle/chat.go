@@ -40,7 +40,7 @@ func (chat Chat) postMessage(c echo.Context) error {
 	case "text":
 		input = Text(req.Content)
 	case "photo":
-		input = Photo{req.Content}
+		input = Photo{Url: req.Content}
 	default:
 		return echo.NewHTTPError(501, "invalid request format")
 	}
