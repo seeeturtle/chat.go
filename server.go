@@ -8,17 +8,8 @@ type Chat struct {
 	scenarios map[string]Scenario
 }
 
-// New returns new *echo.Echo and error to run.
-func (chat Chat) New() *echo.Echo {
-	e := echo.New()
-
-	e.GET("/keyboard", getKeyboard)
-	e.POST("/message", postMessage)
-	e.POST("/friend", postFriend)
-	e.DELETE("/friend/:user_key", deleteFriend)
-	e.DELETE("/chat_room/:user_key", deleteRoom)
-
-	return e
+func NewChat() Chat {
+	return Chat{make(map[string]Scenario)}
 }
 
 // Add sets scenarios[event] as given scenario if event is not in key.
@@ -89,4 +80,17 @@ func (chat Chat) deleteRoom(c echo.Context) error {
 		RunScenario(chat.scenarios["delete_room"],
 			Text(userKey),
 		).(Text)))
+}
+
+// New returns new *echo.Echo and error to run.
+func (chat Chat) New() *echo.Echo {
+	e := echo.New()
+
+	e.GET("/keyboard", chat.getKeyboard)
+	e.POST("/message", chat.postMessage)
+	e.POST("/friend", chat.postFriend)
+	e.DELETE("/friend/:user_key", chat.deleteFriend)
+	e.DELETE("/chat_room/:user_key", chat.deleteRoom)
+
+	return e
 }
