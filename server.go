@@ -12,7 +12,7 @@ func NewChat() Chat {
 	return Chat{make(map[string]Scenario)}
 }
 
-// Add sets scenarios[event] as given scenario if event is not in key.
+// Set scenarios[event] as given scenario if event is not in key.
 func (chat Chat) Add(event string, scenario Scenario) {
 	if _, ok := chat.scenarios[event]; !ok {
 		chat.scenarios[event] = scenario
