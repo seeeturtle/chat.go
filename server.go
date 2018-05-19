@@ -53,7 +53,7 @@ func (chat Chat) postFriend(c echo.Context) error {
 		UserKey string `json:"user_key"`
 	})
 
-	if err := c.Bind(u); err != nil {
+	if err := c.Bind(req); err != nil {
 		return err
 	}
 
