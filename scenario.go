@@ -19,22 +19,22 @@ func RunScenario(scenario Scenario, o Object) Object {
 	}
 }
 
-type CommonScenario struct {
+type CondScenario struct {
 	conditions   []Condition
 	behaviors    []Behavior
 	elseBehavior Behavior
 }
 
-func (scenario *CommonScenario) Add(condition Condition, behavior Behavior) {
+func (scenario *CondScenario) Add(condition Condition, behavior Behavior) {
 	scenario.conditions = append(scenario.conditions, condition)
 	scenario.behaviors = append(scenario.behaviors, behavior)
 }
 
-func (scenario *CommonScenario) Else(behavior Behavior) {
+func (scenario *CondScenario) Else(behavior Behavior) {
 	scenario.elseBehavior = behavior
 }
 
-func (scenario CommonScenario) Next(o Object) (Scenario, Object) {
+func (scenario CondScenario) Next(o Object) (Scenario, Object) {
 	for i, condition := range scenario.conditions {
 		if condition(o) {
 			return scenario.behaviors[i](o)

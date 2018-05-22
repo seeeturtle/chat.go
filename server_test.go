@@ -79,7 +79,7 @@ func compareJSON(expected string) Comparison {
 }
 
 func TestGetKeyboard(t *testing.T) {
-	var getKeyboardScenario CommonScenario
+	var getKeyboardScenario CondScenario
 	getKeyboardScenario.Add(
 		func(o Object) bool {
 			return true
@@ -113,7 +113,7 @@ func TestGetKeyboard(t *testing.T) {
 }
 
 func TestPostMessage(t *testing.T) {
-	var postMessageScenario CommonScenario
+	var postMessageScenario CondScenario
 	postMessageScenario.Add(
 		func(o Object) bool { return true },
 		func(o Object) (Scenario, Object) {
@@ -154,7 +154,7 @@ func TestPostMessage(t *testing.T) {
 }
 
 func TestPostFriend(t *testing.T) {
-	var postFriendScenario CommonScenario
+	var postFriendScenario CondScenario
 	postFriendScenario.Add(
 		func(o Object) bool { return true },
 		func(Object) (Scenario, Object) {
@@ -189,7 +189,7 @@ func TestPostFriend(t *testing.T) {
 }
 
 func TestDeleteFriend(t *testing.T) {
-	var deleteFriendScenario CommonScenario
+	var deleteFriendScenario CondScenario
 	deleteFriendScenario.Add(
 		func(o Object) bool { return true },
 		func(o Object) (Scenario, Object) { return nil, nil },
@@ -223,7 +223,7 @@ func TestDeleteFriend(t *testing.T) {
 }
 
 func TestDeleteRoom(t *testing.T) {
-	var deleteRoomScenario CommonScenario
+	var deleteRoomScenario CondScenario
 	deleteRoomScenario.Add(
 		func(o Object) bool { return true },
 		func(o Object) (Scenario, Object) { return nil, nil },

@@ -7,7 +7,7 @@ import (
 )
 
 func ExampleRunScenario_CommonScenario() {
-	scenario1 := chatgo.CommonScenario{}
+	scenario1 := chatgo.CondScenario{}
 	scenario1.Add(
 		func(o chatgo.Object) bool { return true },
 		func(o chatgo.Object) (chatgo.Scenario, chatgo.Object) {
@@ -30,7 +30,7 @@ func ExampleRunScenario_CommonScenario() {
 }
 
 func ExampleRunScenario_Else() {
-	scenario2 := chatgo.CommonScenario{}
+	scenario2 := chatgo.CondScenario{}
 	scenario2.Add(
 		func(o chatgo.Object) bool { return false },
 		func(o chatgo.Object) (chatgo.Scenario, chatgo.Object) {
@@ -52,7 +52,7 @@ func ExampleRunScenario_Else() {
 }
 
 func ExmapleRunScenario_Deep() {
-	var scenario3, scenario4 chatgo.CommonScenario
+	var scenario3, scenario4 chatgo.CondScenario
 	scenario3.Add(
 		func(o chatgo.Object) bool { return true },
 		func(o chatgo.Object) (chatgo.Scenario, chatgo.Object) {
