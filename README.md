@@ -40,7 +40,7 @@ type Object interface {
 Object는 Response를 할때 JSON으로 Marshal하기 위한 MarshalJSON 메서드를 필요로 합니다.
 
 지금 카카오톡의 플러스 친구를 지원하기 위해서 구현된 Object들은 다음과 같습니다:
-* Text: string의 alias입니다.
+* Text: string을 기반으로 하는 Object입니다.
 * Keyboard: 네, 문서에 있는 그 Keyboard입니다.
 * Message: 메세지를 response할때 사용됩니다.
 * Photo: 네, 이 또한 문서에 있는 그 Photo입니다.
