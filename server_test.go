@@ -90,7 +90,7 @@ func TestGetKeyboard(t *testing.T) {
 	)
 
 	chat := NewChat()
-	chat.Add("get_keyboard", getKeyboardScenario)
+	chat.Set("get_keyboard", getKeyboardScenario)
 
 	req := httptest.NewRequest("GET", "/", nil)
 	req.Header.Set("Content-Type", "application/json")
@@ -127,7 +127,7 @@ func TestPostMessage(t *testing.T) {
 	)
 
 	chat := NewChat()
-	chat.Add("reply_message", postMessageScenario)
+	chat.Set("reply_message", postMessageScenario)
 
 	req := httptest.NewRequest(
 		"POST",
@@ -163,7 +163,7 @@ func TestPostFriend(t *testing.T) {
 	)
 
 	chat := NewChat()
-	chat.Add("add_user", postFriendScenario)
+	chat.Set("add_user", postFriendScenario)
 
 	req := httptest.NewRequest("POST",
 		"/",
@@ -196,7 +196,7 @@ func TestDeleteFriend(t *testing.T) {
 	)
 
 	chat := NewChat()
-	chat.Add("delete_user", deleteFriendScenario)
+	chat.Set("delete_user", deleteFriendScenario)
 
 	req := httptest.NewRequest(
 		"DELETE",
@@ -230,7 +230,7 @@ func TestDeleteRoom(t *testing.T) {
 	)
 
 	chat := NewChat()
-	chat.Add("delete_room", deleteRoomScenario)
+	chat.Set("delete_room", deleteRoomScenario)
 
 	req := httptest.NewRequest(
 		"DELETE",

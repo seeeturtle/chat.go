@@ -13,7 +13,7 @@ func NewChat() Chat {
 }
 
 // Set scenarios[event] as given scenario if event is not in key.
-func (chat Chat) Add(event string, scenario Scenario) {
+func (chat Chat) Set(event string, scenario Scenario) {
 	if _, ok := chat.scenarios[event]; !ok {
 		chat.scenarios[event] = scenario
 	}
